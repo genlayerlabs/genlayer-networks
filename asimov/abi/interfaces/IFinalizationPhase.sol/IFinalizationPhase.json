@@ -8,6 +8,43 @@
       "inputs": [
         {
           "indexed": true,
+          "internalType": "bytes32",
+          "name": "txId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "caller",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum ITransactions.TransactionStatus",
+          "name": "previousStatus",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum ITransactions.TransactionStatus",
+          "name": "newStatus",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "advanced",
+          "type": "bool"
+        }
+      ],
+      "name": "AdvanceStuckTransactionAttempted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
           "internalType": "address",
           "name": "caller",
           "type": "address"
@@ -109,6 +146,86 @@
         {
           "indexed": false,
           "internalType": "enum ITransactions.TransactionStatus",
+          "name": "previousState",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum ITransactions.TransactionStatus",
+          "name": "updatedState",
+          "type": "uint8"
+        }
+      ],
+      "name": "ProcessIdlenessEvent",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "fromSlot",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "toSlot",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "finalizedCount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "cancelledCount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "adminJumpCount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "trackerOrphanRemovedCount",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "noneCount",
+          "type": "uint256"
+        }
+      ],
+      "name": "RecoverRecipientCompleted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "bytes32",
+          "name": "txId",
+          "type": "bytes32"
+        },
+        {
+          "indexed": false,
+          "internalType": "enum ITransactions.TransactionStatus",
           "name": "previousStatus",
           "type": "uint8"
         },
@@ -134,6 +251,42 @@
       ],
       "name": "TransactionForceCanceled",
       "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "txId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "advanceStuckTransaction",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "advanced",
+              "type": "bool"
+            },
+            {
+              "internalType": "enum ITransactions.TransactionStatus",
+              "name": "previousStatus",
+              "type": "uint8"
+            },
+            {
+              "internalType": "enum ITransactions.TransactionStatus",
+              "name": "newStatus",
+              "type": "uint8"
+            }
+          ],
+          "internalType": "struct IFinalizationPhase.AdvanceStuckResult",
+          "name": "result",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
     },
     {
       "inputs": [
@@ -429,6 +582,151 @@
         }
       ],
       "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "txId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "processIdlenessIfNeededWrapper",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "recipient",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "fromSlot",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "toSlot",
+          "type": "uint256"
+        }
+      ],
+      "name": "recoverRecipient",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "uint256",
+              "name": "slot",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bytes32",
+              "name": "txId",
+              "type": "bytes32"
+            },
+            {
+              "internalType": "uint8",
+              "name": "preStatus",
+              "type": "uint8"
+            },
+            {
+              "internalType": "uint8",
+              "name": "postStatus",
+              "type": "uint8"
+            },
+            {
+              "internalType": "enum IFinalizationPhase.RecoverAction",
+              "name": "action",
+              "type": "uint8"
+            },
+            {
+              "internalType": "bool",
+              "name": "messageDispatchSkipped",
+              "type": "bool"
+            }
+          ],
+          "internalType": "struct IFinalizationPhase.RecoverSlotResult[]",
+          "name": "results",
+          "type": "tuple[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "txId",
+          "type": "bytes32"
+        }
+      ],
+      "name": "recoveryFinalizeWrapper",
+      "outputs": [
+        {
+          "components": [
+            {
+              "internalType": "bool",
+              "name": "success",
+              "type": "bool"
+            },
+            {
+              "internalType": "address",
+              "name": "recipient",
+              "type": "address"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastVoteTimestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "uint256",
+              "name": "lastCommitTimestamp",
+              "type": "uint256"
+            },
+            {
+              "internalType": "bool",
+              "name": "shouldProcessMessages",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "shouldSendOnAcceptance",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "idlenessProcessed",
+              "type": "bool"
+            },
+            {
+              "internalType": "bool",
+              "name": "queuedToFinalized",
+              "type": "bool"
+            },
+            {
+              "internalType": "enum ITransactions.TransactionStatus",
+              "name": "previousStatus",
+              "type": "uint8"
+            },
+            {
+              "internalType": "enum ITransactions.TransactionStatus",
+              "name": "idlenessStatus",
+              "type": "uint8"
+            }
+          ],
+          "internalType": "struct IFinalizationPhase.FinalizeTransactionResult",
+          "name": "result",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "nonpayable",
       "type": "function"
     },
     {
