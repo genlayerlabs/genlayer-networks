@@ -43,9 +43,11 @@ applied (`docs/deployment/patches/governance-testnet-timings.patch`: minute-scal
 
 ## Custody and governance
 
-Every Ownable2Step contract and every ProxyAdmin is owned by the custody Safe since
-2026-11-05 22:38 UTC (Safe batch `0xcdbf330e84790ea1cc84ab007bce7a8567b3460ca3a8173748db4768a50d0590`).
-The Governance handoff (ownership sweep to the Governance executor, then the voting-to-executor
-handshake, then the ProxyAdmins) is scheduled from epoch 5 and is executed by the Safe from the
-batches `make governance-handoff CUSTODIAN_ADDRESS=<safe>` writes. Validators join from the
-GenLayer nodes (42,000 GEN each).
+Custody moved to the Safe on 2026-11-05 22:38 UTC (Safe batch
+`0xcdbf330e84790ea1cc84ab007bce7a8567b3460ca3a8173748db4768a50d0590`). The Governance handoff was
+executed by the Safe at epoch 5 on 2026-11-06: ownership sweep and voting-to-executor handshake in
+`0xc3a4ba2de021837ba3e4f2231393d1ad70ed74c62a8a496aa1721f1e9b7e2a3c` (block 220744), ProxyAdmins in
+`0x6fdf3cb713c127391c61100a01ee448ab2091c2d900c069cc790354fc3378073` (block 220748). Every Ownable2Step
+contract and every ProxyAdmin is owned by the Governance executor; the executor is owned by
+GovernanceVoting. Parameter changes and upgrades are governance proposals from here on.
+Validators join from the GenLayer nodes (42,000 GEN each); epochs 0 to 5 were advanced by the deployer.
