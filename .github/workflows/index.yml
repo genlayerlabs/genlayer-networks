@@ -26,13 +26,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: node scripts/build-index.mjs
-      - name: Commit index.json when it changed
+      # Rebuild only when the folder list or a folder's metadata changed, so a
+      # push that touches nothing the index records does not get a bot commit.
+      - name: Rebuild index.json when it is stale
         run: |
-          if git diff --quiet -- index.json; then
-            echo "index.json unchanged"
+          if node scripts/build-index.mjs --check; then
             exit 0
           fi
+          node scripts/build-index.mjs
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.json
