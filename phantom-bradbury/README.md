@@ -46,7 +46,7 @@ Files:
 | --- | --- |
 | Validator minimum stake | 42,000 GEN |
 | Delegator minimum stake | 42 GEN |
-| Epoch 0 | 2026-11-09 13:21:03 UTC to 2026-11-10 13:00 UTC (14:00 CET), extended from 12:00 CET on 2026-11-10 |
+| Epoch 0 | 2026-11-09 13:21:03 UTC to 2026-11-13 10:00 UTC (11:00 CET); first set to 2026-11-10 12:00 CET, extended on 2026-11-10, 2026-11-11 and 2026-11-12 |
 | Epochs after 0 | 1800 s, threshold 300 s |
 | Timeouts (activate, propose, commit, reveal, decided, leaderReveal) | 60, 300, 300, 60, 1800, 60 s |
 | genesisGES | 4,850,000 GEN (the vesting distribution total) |
