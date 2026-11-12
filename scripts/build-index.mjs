@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 // Builds index.json: one entry per deployment folder (a top-level directory
-// holding testnet_deployments.json), newest folder first. The UIs read this
+// holding testnet_deployments.json), newest folder first. A folder whose book
+// has no AddressManager yet (tokens only) is left out. The UIs read this
 // file to populate their deployment selector and to pick the default.
 //
 //   node scripts/build-index.mjs            # writes index.json
@@ -39,16 +40,17 @@ function bookInfo(file) {
       }
     }
   }
-  throw new Error(`${file}: no deployment set with an AddressManager`);
+  return null;
 }
 
 const folders = readdirSync(root, { withFileTypes: true })
   .filter((d) => d.isDirectory() && !d.name.startsWith(".") && existsSync(join(root, d.name, BOOK)))
   .map((d) => d.name);
 
-const deployments = folders.map((name) => {
+const deployments = folders.flatMap((name) => {
   const book = `${name}/${BOOK}`;
   const info = bookInfo(join(root, book));
+  if (!info) return [];
   const created = isoUtc(git("log", "--diff-filter=A", "--format=%ct", "--reverse", "--", book).split("\n")[0]);
   const updated = isoUtc(git("log", "-1", "--format=%ct", "--", name));
   const commitFile = join(root, name, "COMMIT");

@@ -5,6 +5,7 @@ deployment:
 
 | Folder | Network | Deployment set |
 | --- | --- | --- |
+| `mainnet/` | GenLayer mainnet (Orbit, chain 42424242); GEN and wGEN only so far | `deployment_main` |
 | `bradbury-phase-2/` | Bradbury rollup (Orbit, chain 4221) | `deployment_bradbury_phase_2` |
 | `phantom-bradbury/` | Bradbury rollup (Orbit, chain 4221), private | `deployment_phantom_bradbury` |
 | `pre-phantom-bradbury/` | Bradbury rollup (Orbit, chain 4221), rehearsal | `pre_deployment_phantom_bradbury` |
@@ -21,7 +22,7 @@ Each folder holds:
 
 ## index.json
 
-`index.json` lists every folder, newest first, with its network key, deployment set, AddressManager
+`index.json` lists every folder whose book has an AddressManager, newest first, with its network key, deployment set, AddressManager
 and timestamps (see `index.schema.json`). It is rebuilt by the "Rebuild deployment index"
 workflow on every push to `main`; to refresh it locally run `node scripts/build-index.mjs`.
 
