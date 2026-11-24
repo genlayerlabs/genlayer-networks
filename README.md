@@ -5,6 +5,7 @@ deployment:
 
 | Folder | Network | Deployment set |
 | --- | --- | --- |
+| `bradbury-phase-3/` | Bradbury rollup (Orbit, chain 4221) | `deployment_bradbury_phase_3` |
 | `bradbury-phase-2/` | Bradbury rollup (Orbit, chain 4221) | `deployment_bradbury_phase_2` |
 | `phantom-bradbury/` | Bradbury rollup (Orbit, chain 4221), private | `deployment_phantom_bradbury` |
 | `pre-phantom-bradbury/` | Bradbury rollup (Orbit, chain 4221), rehearsal | `pre_deployment_phantom_bradbury` |
