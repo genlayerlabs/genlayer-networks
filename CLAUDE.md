@@ -8,6 +8,7 @@ This repository holds deployment configurations for GenLayer networks across dif
 
 - **Asimov** - Early testnet phases on the zkSync OS testnet (`asimov/`)
 - **Bradbury** - Phase 1 on the zkSync OS testnet (`bradbury/`); Phase 2 on the Orbit rollup, chain 4221 (`bradbury-phase-2/`); Phase 3, its replacement on the same rollup (`bradbury-phase-3/`)
+- **Clarke** - Public testnet on the Orbit rollup, chain 4221 (`clarke/`)
 - **Phantom Bradbury** - Private Clarke-code network on the Orbit rollup (`phantom-bradbury/`, rehearsal in `pre-phantom-bradbury/`)
 
 The repository manages:
