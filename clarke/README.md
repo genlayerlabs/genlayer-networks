@@ -67,7 +67,7 @@ lock and no Foundation. Its owner upgrades the same address to `DeepthoughtReser
 | Submitted messages cap / eq outputs cap | 30,600 / 32,768 bytes |
 | Minimum validators for admission | 5 |
 | Vesting schedules | none |
-| Airdrops | 39 of 42,000 GEN sent to validators; 3 listed recipients already held the amount and were skipped |
+| Airdrops | 42 of 42,000 GEN sent to validators, 1,764,000 GEN in total (39 by the pipeline, 3 by hand) |
 | Inflation | Sepolia GEN (`0x424242424b68330CcFb022881d25a6acC29852ea`) over the real bridge, escrow above; epochs 0 to 14 delivered |
 | Governance | deployed, production windows; `genesisGES` 1,764,000 GEN; handoff not before epoch 5 |
 
